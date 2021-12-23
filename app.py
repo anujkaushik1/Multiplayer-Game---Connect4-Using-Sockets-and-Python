@@ -12,7 +12,8 @@ surface.fill(color)
 pygame.display.set_caption("Pepcoding Connect4")
 
 black_color = (0,0,0)
-red_color = (255,0,0)
+player_color = ((0,255,170))
+isPlayerColor = True
 
 redColorXCoordinate = 0
 redColorYCoordinate = 0
@@ -29,6 +30,9 @@ listOfCircles = [
                   [[X,Y+240] , [X+60,Y+240], [X+120,Y+240], [X+180,Y+240], [X+240,Y+240],[X+300,Y+240]]                 
                   
                 ] 
+
+connect4List = []
+
 
 
 pygame.draw.circle(surface, black_color, (X,Y), 20,0)
@@ -85,11 +89,14 @@ def isInside(equation_x, equation_y, equation_h, equation_k):
 while True:
 
     for event in pygame.event.get():
+        
+        if(isPlayerColor):
+            player_color = (255,0,0)
+        
+        else:
+            player_color = ((0,255,0))
 
         if event.type == pygame.MOUSEBUTTONUP:
-
-            if(redColorXCoordinate!=0 and redColorYCoordinate!=0):
-                 pygame.draw.circle(surface, black_color, (redColorXCoordinate, redColorYCoordinate), 20, 0)
 
             equation_x, equation_y = pygame.mouse.get_pos()
 
@@ -109,7 +116,12 @@ while True:
                         
                         redColorXCoordinate, redColorYCoordinate =listOfCircles[row-1][column]
 
-                        pygame.draw.circle(surface, red_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
+                        pygame.draw.circle(surface, player_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
+                        
+                        if(isPlayerColor):
+                            isPlayerColor = False
+                        else:
+                            isPlayerColor = True
 
                         isTrue = True
                         break
