@@ -12,6 +12,10 @@ surface.fill(color)
 pygame.display.set_caption("Pepcoding Connect4")
 
 black_color = (0,0,0)
+red_color = (255,0,0)
+
+redColorXCoordinate = 0
+redColorYCoordinate = 0
 
 #cordinate of circle
 X = 40
@@ -83,6 +87,10 @@ while True:
     for event in pygame.event.get():
 
         if event.type == pygame.MOUSEBUTTONUP:
+            
+            if(redColorXCoordinate!=0 and redColorYCoordinate!=0):
+                 pygame.draw.circle(surface, black_color, (redColorXCoordinate, redColorYCoordinate), 20, 0)
+
             equation_x, equation_y = pygame.mouse.get_pos()
 
             isTrue = False
@@ -94,7 +102,12 @@ while True:
                    equation_h, equation_k = j
 
                    if(isInside(equation_x, equation_y, equation_h, equation_k)):
-                        print("It is inside the cirle", equation_h, equation_k)
+                        print("It is inside the cirle")
+                     
+                        pygame.draw.circle(surface, red_color, (equation_h, equation_k) , 20, 0)
+                        redColorXCoordinate = equation_h
+                        redColorYCoordinate = equation_k
+
                         isTrue = True
                         break
             
