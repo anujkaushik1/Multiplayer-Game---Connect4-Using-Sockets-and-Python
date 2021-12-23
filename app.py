@@ -87,7 +87,7 @@ while True:
     for event in pygame.event.get():
 
         if event.type == pygame.MOUSEBUTTONUP:
-            
+
             if(redColorXCoordinate!=0 and redColorYCoordinate!=0):
                  pygame.draw.circle(surface, black_color, (redColorXCoordinate, redColorYCoordinate), 20, 0)
 
@@ -103,10 +103,13 @@ while True:
 
                    if(isInside(equation_x, equation_y, equation_h, equation_k)):
                         print("It is inside the cirle")
-                     
-                        pygame.draw.circle(surface, red_color, (equation_h, equation_k) , 20, 0)
-                        redColorXCoordinate = equation_h
-                        redColorYCoordinate = equation_k
+
+                        column = int(equation_h/60)
+                        row = len(listOfCircles)
+                        
+                        redColorXCoordinate, redColorYCoordinate =listOfCircles[row-1][column]
+
+                        pygame.draw.circle(surface, red_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
 
                         isTrue = True
                         break
