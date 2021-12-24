@@ -1,17 +1,25 @@
-X = 40
-Y = 30
 
-listOfCircles = [
-                  [[X,Y] , [X+60,Y], [X+120,Y], [X+180,Y], [X+240,Y],[X+300,Y]],
-                  [[X,Y+60] , [X+60,Y+60], [X+120,Y+60], [X+180,Y+60], [X+240,Y+60],[X+300,Y+60]],
-                  [[X,Y+120] , [X+60,Y+120], [X+120,Y+120], [X+180,Y+120], [X+240,Y+120],[X+300,Y+120]],
-                  [[X,Y+180] , [X+60,Y+180], [X+120,Y+180], [X+180,Y+180], [X+240,Y+180],[X+300,Y+180]],
-                  [[X,Y+240] , [X+60,Y+240], [X+120,Y+240], [X+180,Y+240], [X+240,Y+240],[X+300,Y+240]]                 
-                  
-                ] 
+list = []
 
+
+
+for i in range(4):
+  col = []
+  for j in range(3):
+    col.append(-1)
+
+  list.append(col)
+
+
+
+
+for i in range(len(list)):
+  for j in range(len(list[0])):
+    print(list[i][j], end=" ")
+  
+  print()
 
 
 
   
-  
+

@@ -35,6 +35,16 @@ connect4List = []
 
 
 
+for i in range(len(listOfCircles)):
+    col = []
+    for j in range(len(listOfCircles[0])):
+        col.append(-1)
+    connect4List.append(col)
+
+
+
+
+
 pygame.draw.circle(surface, black_color, (X,Y), 20,0)
 pygame.draw.circle(surface, black_color, (X + 60 ,Y), 20,0)
 pygame.draw.circle(surface, black_color, (X + 120,Y), 20,0)
@@ -83,10 +93,12 @@ def isInside(equation_x, equation_y, equation_h, equation_k):
     
     else:
         return False
-    
 
 
 while True:
+
+    player_one = 0
+    player_two = 1
 
     for event in pygame.event.get():
         
@@ -100,7 +112,7 @@ while True:
 
             equation_x, equation_y = pygame.mouse.get_pos()
 
-            isTrue = False
+            isInsideTrue = False
             
             for i in listOfCircles:
 
@@ -113,23 +125,42 @@ while True:
 
                         column = int(equation_h/60)
                         row = len(listOfCircles)
+
+                        redColorXCoordinate = 0
+                        redColorYCoordinate = 0
                         
-                        redColorXCoordinate, redColorYCoordinate =listOfCircles[row-1][column]
+                        for x in reversed(range(len(connect4List))):
+                            if(connect4List[x][column] == -1):
+                                
+                                if(isPlayerColor):  
+                                    connect4List[x][column] = player_one
+                                    redColorXCoordinate, redColorYCoordinate =listOfCircles[x][column]
+                                
+                                else:
+                                    connect4List[x][column] = player_two
+                                    redColorXCoordinate, redColorYCoordinate =listOfCircles[x][column]
+
+                               
+                                break
+                            
+
+                        for x in connect4List:
+                            print(x)
+                        
 
                         pygame.draw.circle(surface, player_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
-                        
                         if(isPlayerColor):
                             isPlayerColor = False
                         else:
                             isPlayerColor = True
 
-                        isTrue = True
+                        isInsideTrue = True
                         break
             
-                   else:
+                   else:    
                         pass
 
-               if(isTrue):
+               if(isInsideTrue):
                    break
             
 
