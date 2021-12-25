@@ -1,3 +1,4 @@
+from typing import Counter
 import pygame
 
 from time import sleep
@@ -40,9 +41,6 @@ for i in range(len(listOfCircles)):
     for j in range(len(listOfCircles[0])):
         col.append(-1)
     connect4List.append(col)
-
-
-
 
 
 pygame.draw.circle(surface, black_color, (X,Y), 20,0)
@@ -95,6 +93,191 @@ def isInside(equation_x, equation_y, equation_h, equation_k):
         return False
 
 
+def isFourDotsConnected(row, column, player):
+    
+
+    dots = 0
+
+    # BOTTOM TO TOP => 
+    r = row - 3
+    mainRow = row
+    mainColumn = column
+
+    while(mainRow >= r and mainRow >= 0):
+        element = connect4List[mainRow][mainColumn]
+        
+        if(element == 0):
+            dots += 1
+
+        mainRow -= 1
+    
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+
+
+
+
+    # TOP RIGHT =>
+
+    r = row - 3
+    c = column + 3
+    mainRow = row
+    mainColumn = column
+
+    while(mainRow >= r and mainColumn <= c and mainRow >= 0 and mainColumn < len(connect4List[0])):
+        element = connect4List[mainRow][mainColumn]
+
+        if(element == 0):
+            dots += 1
+
+        mainRow -= 1
+        mainColumn += 1
+    
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+
+
+
+
+    # TOP LEFT =>
+    
+    r = row-3
+    c = column-3
+    mainRow = row
+    mainColumn = column
+
+    while(mainRow>=r and mainColumn>=c):
+        element = connect4List[mainRow][mainColumn]
+
+        if(element == 0):
+            dots += 1
+
+        mainRow -= 1
+        mainColumn -= 1
+
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+
+    
+    # TO LEFT =>
+
+    mainRow = row
+    mainColumn = column
+    c = column-3
+
+    while(mainColumn>=c):
+        element = connect4List[mainRow][mainColumn]
+
+        if(element == 0):
+            dots += 1
+
+        mainColumn -= 1
+
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+
+    # TO RIGHT =>
+    
+    mainRow = row
+    mainColumn = column
+    c = column + 3
+
+    while(mainColumn <= c and mainColumn < len(connect4List[0])):
+        element = connect4List[mainRow][mainColumn]
+        mainColumn += 1
+
+        if(element == 0):
+            dots += 1
+        
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+
+    
+    # TO BOTTOM =>
+
+    mainRow = row
+    mainColumn = column
+    r = row + 3
+
+    while(mainRow <= r and mainRow < len(connect4List)):
+        element = connect4List[mainRow][mainColumn]
+
+        if(element == 0):
+            dots += 1
+
+        mainRow += 1
+    
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+    
+    #BOTTOM LEFT =>
+
+    mainRow = row
+    mainColumn = column
+
+    r = row + 3
+    c = column - 3
+
+    while(mainRow <= r and mainColumn >= c and mainRow < len(listOfCircles) and mainColumn>=0):
+        element = connect4List[mainRow][mainColumn]
+
+        if(element == 0):
+            dots += 1
+        
+        mainRow += 1
+        mainColumn -= 1
+    
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+
+    #BOTTOM RIGHT =>
+
+    mainRow = row
+    mainColumn = column
+    r = row + 3
+    c = column + 3
+
+    while(mainRow <= r and mainColumn <= c and mainRow < len(connect4List) and mainColumn < len(connect4List[0])):
+        element = connect4List[mainRow][mainColumn]
+
+        if(element == 0):
+            dots += 1
+
+        mainRow += 1
+        mainColumn += 1
+
+    if(dots == 4):
+        return True
+    
+    else:
+        dots = 0
+    
+        
+
+
+
+
 while True:
 
     player_one = 0
@@ -140,19 +323,25 @@ while True:
                                     connect4List[x][column] = player_two
                                     redColorXCoordinate, redColorYCoordinate =listOfCircles[x][column]
 
+                                if(isFourDotsConnected(x,column,isPlayerColor)):
+                                    print("Player Wins")
+
+                                else:
+                                    print("Player looses")
                                
                                 break
                             
 
                         for x in connect4List:
                             print(x)
-                        
+
 
                         pygame.draw.circle(surface, player_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
                         if(isPlayerColor):
                             isPlayerColor = False
                         else:
                             isPlayerColor = True
+
 
                         isInsideTrue = True
                         break
