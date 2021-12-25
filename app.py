@@ -11,10 +11,15 @@ color = (0,0,150)
 surface = pygame.display.set_mode((400,300))
 surface.fill(color)
 pygame.display.set_caption("Pepcoding Connect4")
+font = pygame.font.Font("freesansbold.ttf", 40)
+font_black = (0,0,0)
+font_white = (255,255,255)
+
 
 black_color = (0,0,0)
 player_color = ((0,255,170))
 isPlayerColor = True
+playerWins = False
 
 redColorXCoordinate = 0
 redColorYCoordinate = 0
@@ -425,13 +430,29 @@ while True:
                                 if(dictionary):
                                     if(dictionary["player"] == 0):
                                         print("Player 1 wins (Red Player)")
+
+                                        text = font.render("Player 1 Wins", True, font_white, font_black)
+                                        textRect = text.get_rect()
+                                        surface.fill(font_black)
+                                        textRect.center = (200, 150)
+                                        surface.blit(text, textRect)
+                                        playerWins = True
+
                                     
                                     elif(dictionary["player"] == 1):
                                         print("Player 2 Wins (Green Color)")
+                                        text = font.render("Player 2 Wins", True, font_white, font_black)
+                                        textRect = text.get_rect()
+                                        surface.fill(font_black)
+                                        textRect.center = (200, 150)
+                                        surface.blit(text, textRect)
+                                        playerWins = True
                                 
                                
                                 break
-                            
+
+                        if(playerWins == True):
+                            break    
 
                         for x in connect4List:
                             print(x)
@@ -450,7 +471,7 @@ while True:
                    else:    
                         pass
 
-               if(isInsideTrue):
+               if(isInsideTrue or playerWins):
                    break
             
 
