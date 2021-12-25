@@ -93,10 +93,16 @@ def isInside(equation_x, equation_y, equation_h, equation_k):
         return False
 
 
-def isFourDotsConnected(row, column, player):
+def isFourdots0Connected(row, column, player):
     
+    dots0 = 0
+    dots1 = 0
 
-    dots = 0
+    dictionary = {
+        "player" : -1,
+        "dots" : False
+    }
+
 
     # BOTTOM TO TOP => 
     r = row - 3
@@ -107,17 +113,29 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
         
         if(element == 0):
-            dots += 1
+            dots0 += 1
+            # print(dots0)
+
+        
+        if(element == 1):
+            dots1 += 1
+            # print(dots1)
 
         mainRow -= 1
     
-    if(dots == 4):
-        return True
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
+    
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
     
     else:
-        dots = 0
-
-
+        dots0 = 0
+        dots1 = 0
 
 
     # TOP RIGHT =>
@@ -131,16 +149,28 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
+
+        elif(element == 1):
+            dots1 += 1
+
 
         mainRow -= 1
         mainColumn += 1
     
-    if(dots == 4):
-        return True
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
+
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
     
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
 
 
 
@@ -156,16 +186,28 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
+        
+        elif(element == 1):
+            dots1 += 1
+
 
         mainRow -= 1
         mainColumn -= 1
 
-    if(dots == 4):
-        return True
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
+
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
     
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
 
     
     # TO LEFT =>
@@ -178,15 +220,27 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
+        
+        elif(element == 1):
+            dots1 += 1
+
 
         mainColumn -= 1
 
-    if(dots == 4):
-        return True
-    
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
+
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
+
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
 
     # TO RIGHT =>
     
@@ -199,13 +253,25 @@ def isFourDotsConnected(row, column, player):
         mainColumn += 1
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
         
-    if(dots == 4):
-        return True
+        elif(element == 1):
+            dots1 += 1
+
+        
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
     
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
+
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
 
     
     # TO BOTTOM =>
@@ -218,15 +284,26 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
+
+        elif(element == 1):
+            dots1 += 1
 
         mainRow += 1
     
-    if(dots == 4):
-        return True
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
     
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
+
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
     
     #BOTTOM LEFT =>
 
@@ -240,16 +317,28 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
+
+        elif(element == 1):
+            dots1 += 1
+
         
         mainRow += 1
         mainColumn -= 1
     
-    if(dots == 4):
-        return True
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
     
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
+
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
 
     #BOTTOM RIGHT =>
 
@@ -262,20 +351,28 @@ def isFourDotsConnected(row, column, player):
         element = connect4List[mainRow][mainColumn]
 
         if(element == 0):
-            dots += 1
+            dots0 += 1
+
+        elif(element == 1):
+            dots1 += 1
 
         mainRow += 1
         mainColumn += 1
 
-    if(dots == 4):
-        return True
+    if(dots0 == 4):
+        dictionary["player"] = 0
+        dictionary["dots"] = True
+        return dictionary
     
+    elif(dots1 == 4):
+        dictionary["player"] = 1
+        dictionary["dots"] = True
+        return dictionary
+
     else:
-        dots = 0
+        dots0 = 0
+        dots1 = 0
     
-        
-
-
 
 
 while True:
@@ -323,11 +420,15 @@ while True:
                                     connect4List[x][column] = player_two
                                     redColorXCoordinate, redColorYCoordinate =listOfCircles[x][column]
 
-                                if(isFourDotsConnected(x,column,isPlayerColor)):
-                                    print("Player Wins")
-
-                                else:
-                                    print("Player looses")
+                                dictionary = isFourdots0Connected(x,column,isPlayerColor)
+                                
+                                if(dictionary):
+                                    if(dictionary["player"] == 0):
+                                        print("Player 1 wins (Red Player)")
+                                    
+                                    elif(dictionary["player"] == 1):
+                                        print("Player 2 Wins (Green Color)")
+                                
                                
                                 break
                             
