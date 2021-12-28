@@ -382,6 +382,8 @@ def isFourdots0Connected(row, column, player):
 
 while True:
 
+    counter = len(listOfCircles) * len(listOfCircles[0])
+
     player_one = 0
     player_two = 1
 
@@ -408,7 +410,7 @@ while True:
                    if(isInside(equation_x, equation_y, equation_h, equation_k)):
                         print("It is inside the cirle")
 
-                        column = int(equation_h/60)
+                        column = int(equation_h/60)  
                         row = len(listOfCircles)
 
                         redColorXCoordinate = 0
@@ -455,9 +457,12 @@ while True:
                             break    
 
                         for x in connect4List:
-                            print(x)
+                            print(x)  
 
-
+                        
+                        if(redColorYCoordinate == 0 and redColorYCoordinate == 0):
+                            break
+                        
                         pygame.draw.circle(surface, player_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
                         if(isPlayerColor):
                             isPlayerColor = False
