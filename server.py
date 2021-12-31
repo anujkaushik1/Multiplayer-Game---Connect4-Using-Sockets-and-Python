@@ -14,8 +14,7 @@ def client_thread(client):
          msg = client.recv(1024)
          print(msg)
          for c in all_clients:
-             if(c != client):
-                 c.send(msg)
+             c.send(msg)
         
         except:
             del all_clients[client]

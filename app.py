@@ -411,11 +411,7 @@ def startingScreen():
 
     x1, y1 = 200 - 140 / 2 , 130 + 60 / 2
     x2, y2 = 200 + 140 / 2 , 130 - 60 / 2
-    
-    print(x1, y1)
-    print(x2, y2)
 
-    print("--------------------")
     temp = False
     while True:
 
@@ -424,18 +420,14 @@ def startingScreen():
            if event.type == pygame.MOUSEBUTTONDOWN:
                
                x, y = pygame.mouse.get_pos()
-               
-               print(x ,y)
 
                if(isPointInsideRect(x1, y1, x2, y2, x, y)):
-                   print("Yes it is true")
                    temp = True
 
            if event.type == pygame.QUIT:
                 quit()
         
         if(temp):
-            print("Hello world")
             surface.fill(color)
             break
 
@@ -456,24 +448,43 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(("localhost", 5555))
 client.send(name.encode())
 
+numbers = []
 def send(data, client):
 
     client.send(str(data).encode())
 
 def receive(client):
-
+     global numbers 
      while True:
             try:
                 data = client.recv(1024).decode()
-                print(str(data))
+                
+                ans = ""
+                for char in data:
+                    if(char != "(" and char != ")"):
+                        if(char == ","):
+                            numbers.append(int(ans))
+                            ans = ""
+                        
+                        else:
+                            ans += char
+
+                numbers.append(int(ans))
+
             except Exception as e:
                 print(str(e))
                 client.close()
                 break
 
+newRedColorXCoordinate = 0
+newRedColorYCoordinate = 0
 def main():
+    global numbers, newRedColorYCoordinate, newRedColorXCoordinate
+    thread2 = Thread(target=receive, args=(client, ))
+    thread2.start() 
+    
     while True:
-
+    
         global isPlayerColor, playerWins  #these variables are considered as a local variable, and it's used before being set, thus the error.
 
         player_one = 0
@@ -522,13 +533,10 @@ def main():
                                     data = redColorXCoordinate, redColorYCoordinate
 
                                     # SOCKET =>
-                                    
+
                                     thread1 = Thread(target=send, args=(data, client, ))
                                     thread1.start()
-                                  
-                                    thread2 = Thread(target=receive, args=(client, ))
-                                    thread2.start() 
-                                    
+
 
                                     dictionary = isFourdots0Connected(x,column,isPlayerColor)
                                     
@@ -559,13 +567,11 @@ def main():
                             if(playerWins == True):
                                 break    
 
-                            for x in connect4List:
-                                print(x)  
-
                             
                             if(redColorYCoordinate == 0 and redColorYCoordinate == 0):
                                 break
                             
+
                             pygame.draw.circle(surface, player_color, (redColorXCoordinate, redColorYCoordinate) , 20, 0)
                             if(isPlayerColor):
                                 isPlayerColor = False
